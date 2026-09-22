@@ -177,7 +177,11 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                 return GestureDetector(
                   onTap: () {
                     setState(() {
-                      product.isSelected = !product.isSelected;
+                      if (product.isSelected) {
+                        product.isSelected = false;
+                      } else if (!products.any((p) => p.isSelected)) {
+                        product.isSelected = true;
+                      }
                     });
                   },
                   onDoubleTap: () {
@@ -385,10 +389,9 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
           BottomNavigationBarItem(icon: Icon(Icons.grid_view), label: 'Kategori'),
           BottomNavigationBarItem(
             icon: Badge(
-              label: Text('${products.where((p) => p.isSelected).length}'),
+              label: Text('5'),
               backgroundColor: Colors.red,
-              isLabelVisible: products.any((p) => p.isSelected),
-              child: const Icon(Icons.shopping_cart_outlined),
+              child: Icon(Icons.shopping_cart_outlined),
             ),
             label: 'Keranjang',
           ),
